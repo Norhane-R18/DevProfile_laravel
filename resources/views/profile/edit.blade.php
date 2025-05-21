@@ -1,29 +1,29 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+    <h2 class="text-xl font-bold mb-4">Édition du profil</h2>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+    @if(session('success'))
+        <div class="text-green-600 mb-4">{{ session('success') }}</div>
+    @endif
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+    <form method="POST" action="{{ route('profile.update') }}">
+        @csrf
+        @method('PUT')
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-        </div>
-    </div>
+        <label>Nom :</label>
+        <input type="text" name="name" value="{{ old('name', $user->name) }}" class="block mb-2 border" required>
+
+        <label>Email :</label>
+        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="block mb-2 border" required>
+
+        <label>Titre :</label>
+        <input type="text" name="title" value="{{ old('title', $user->title) }}" class="block mb-2 border">
+
+        <label>Bio :</label>
+        <textarea name="bio" class="block mb-2 border">{{ old('bio', $user->bio) }}</textarea>
+
+        <label>Username (profil public) :</label>
+        <input type="text" name="username" value="{{ old('username', $user->username) }}" class="block mb-2 border" required>
+
+        <button class="bg-blue-500 text-white px-4 py-2 mt-4">Mettre à jour</button>
+    </form>
 </x-app-layout>
