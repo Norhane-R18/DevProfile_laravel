@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -27,5 +28,16 @@ class ProfileController extends Controller
         $user->update($request->all());
 
         return redirect()->route('profile.edit')->with('success', 'Profil mis à jour !');
+    }
+
+    public function show($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        
+        return view('profile.show', [
+            'user' => $user,
+            'projects' => $user->projects,
+            'skills' => $user->skills
+        ]);
     }
 }

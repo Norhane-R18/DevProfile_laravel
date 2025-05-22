@@ -19,24 +19,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('welcome');
+});
 
-Route::middleware('auth')->group(function () {
-    
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    //raso
-    Route::resource('projects',ProjectController::class);
-     Route::resource('skills', SkillController::class);
-     Route::get('/profile/{username}', [PublicProfileController::class, 'show'])->name('profile.show');
-     Route::get('/pdf/{username}', [PDFController::class, 'generate'])->name('pdf.generate');
 
+    // Project routes
+    Route::resource('projects', ProjectController::class);
 
+    // Skill routes
+    Route::resource('skills', SkillController::class);
 });
 
+// Public routes
+Route::get('/profile/{username}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+Route::get('/pdf/{username}', [PDFController::class, 'generate'])->name('pdf.generate');
 
 require __DIR__.'/auth.php';

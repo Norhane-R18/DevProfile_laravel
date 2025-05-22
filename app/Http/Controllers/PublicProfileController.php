@@ -2,14 +2,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class PublicProfileController extends Controller
 {
     public function show($username)
     {
-        $user = User::where('username', $username)->firstOrFail();
+        $user = User::where('username', $username)
+            ->with(['projects', 'skills'])
+            ->firstOrFail();
 
-        return view('public.profile', compact('user'));
+        return view('profile.show', compact('user'));
     }
 }
 

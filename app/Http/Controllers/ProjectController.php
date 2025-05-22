@@ -20,38 +20,38 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'link' => 'nullable|url',
+            'link' => 'nullable|url|max:255',
         ]);
 
-        auth()->user()->Projects()->create($request->all());
+        auth()->user()->projects()->create($validated);
 
-        return redirect()->route('projects.index')->with('success', 'Projet ajouté');
+        return redirect()->route('projects.index')
+            ->with('success', 'Projet créé avec succès.');
     }
 
     public function edit(Project $project)
     {
-        // Check if the project belongs to the authenticated user
         $this->authorize('update', $project);
-        
         return view('projects.edit', compact('project'));
     }
 
     public function update(Request $request, Project $project)
     {
         $this->authorize('update', $project);
-        
-        $request->validate([
+
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'link' => 'nullable|url',
+            'link' => 'nullable|url|max:255',
         ]);
 
-        $project->update($request->all());
+        $project->update($validated);
 
-        return redirect()->route('projects.index')->with('success', 'Projet mis à jour');
+        return redirect()->route('projects.index')
+            ->with('success', 'Projet modifié avec succès.');
     }
 
     public function destroy(Project $project)
@@ -60,6 +60,7 @@ class ProjectController extends Controller
         
         $project->delete();
 
-        return redirect()->route('projects.index')->with('success', 'Projet supprimé');
+        return redirect()->route('projects.index')
+            ->with('success', 'Projet supprimé avec succès.');
     }
 }
