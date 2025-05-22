@@ -2,6 +2,9 @@
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController; 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicProfileController;
+use App\Http\Controllers\PDFController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,6 +32,10 @@ Route::middleware('auth')->group(function () {
     //raso
     Route::resource('projects',ProjectController::class);
      Route::resource('skills', SkillController::class);
+     Route::get('/profile/{username}', [PublicProfileController::class, 'show'])->name('profile.show');
+     Route::get('/pdf/{username}', [PDFController::class, 'generate'])->name('pdf.generate');
+
+
 });
 
 
