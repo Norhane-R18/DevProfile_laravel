@@ -17,7 +17,7 @@ DevProfile est une application web développée avec Laravel qui permet à chaqu
 
 1. Cloner le dépôt GitHub :
    ```bash
-   git clone https://github.com/Norhane-R18/DevProfile_laravel
+   git clone https://github.com/votre-utilisateur/devprofile.git
    cd devprofile
    ```
 
@@ -68,6 +68,30 @@ Le projet suit l'architecture MVC de Laravel :
 - **Contrôleurs** : ProfileController, ProjectController, SkillController, PDFController
 - **Vues** : Blade templates dans `resources/views`
 
+## 🧪 Tests et Validation
+
+- Fonctionnalités testées manuellement (authentification, CRUD, génération PDF)
+- Interface responsive vérifiée sur mobile, tablette, et desktop
+- Sécurité assurée via le middleware `auth`
+
+## 🛠️ Problèmes rencontrés et solutions
+
+### 1. Erreur lors de l'installation de Breeze
+**Problème :** `composer require laravel/breeze --dev` retourne une erreur.  
+**Solution :** Vérifier la version de Laravel et PHP. Breeze nécessite Laravel 8+ et PHP >= 8.1.
+
+### 2. Les assets (CSS/JS) ne se compilent pas
+**Problème :** Après `npm install`, la commande `npm run dev` échoue.  
+**Solution :** Supprimer le dossier `node_modules`, effacer `package-lock.json`, puis relancer :
+```bash
+rm -rf node_modules package-lock.json
+npm install
+npm run dev
+```
+
+### 3. Problèmes de migration
+**Problème :** Conflit ou échec de migration à cause des relations.  
+**Solution :** S'assurer que les tables référencées existent avant d'utiliser `foreignId()->constrained()`.
 
 
 ## 📄 Licence
