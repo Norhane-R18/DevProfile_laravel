@@ -17,7 +17,7 @@ DevProfile est une application web développée avec Laravel qui permet à chaqu
 
 1. Cloner le dépôt GitHub :
    ```bash
-   git clone https://github.com/votre-utilisateur/devprofile.git
+   git clone https://github.com/Norhane-R18/DevProfile_laravel
    cd devprofile
    ```
 
