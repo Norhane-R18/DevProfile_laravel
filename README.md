@@ -68,11 +68,7 @@ Le projet suit l'architecture MVC de Laravel :
 - **Contrôleurs** : ProfileController, ProjectController, SkillController, PDFController
 - **Vues** : Blade templates dans `resources/views`
 
-## 🧪 Tests et Validation
 
-- Fonctionnalités testées manuellement (authentification, CRUD, génération PDF)
-- Interface responsive vérifiée sur mobile, tablette, et desktop
-- Sécurité assurée via le middleware `auth`
 
 ## 🛠️ Problèmes rencontrés et solutions
 
